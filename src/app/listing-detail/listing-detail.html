@@ -1,0 +1,13 @@
+
+
+<div class = "details-box" *ngIf = "listing !== undefined">
+    <p>Details of Listing "{{listing.name}} "</p>
+
+    <div>Id - {{listing.id}}</div>
+    <div>Name - {{listing.name}}</div>
+    <div>Description - {{listing.description}}</div>
+    <div>Price - ${{listing.price}}</div>
+    <a routerLink="/contact/{{listing.id}}"><button>Contact Seller</button></a>
+
+    <button><a routerLink = "/listings">Go Back</a></button>
+</div>

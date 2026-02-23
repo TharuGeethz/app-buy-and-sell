@@ -1,0 +1,12 @@
+body {
+    padding: 2%;
+}
+
+.content-box {
+    border:outset;
+    border-radius: 2px;
+    padding: 2%;
+    margin:1%;
+    color:black;
+ 
+}

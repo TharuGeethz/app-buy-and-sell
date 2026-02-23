@@ -1,0 +1,16 @@
+
+
+<div *ngFor="let listing of myListings" class="contents">
+
+    <div>{{listing.name}}</div>
+    <div>${{listing.price}}</div>
+    <div>{{listing.description}}</div>
+
+    <div class="buttons-set">
+        <a routerLink="/edit-listing/{{listing.id}}"><button>Edit</button></a>
+        <button (click)="onDeleteClicked(listing.id.toString())">Delete</button>
+    </div>
+</div>
+
+<a routerLink="/new-listing"><button>Add New Listing</button></a>
+

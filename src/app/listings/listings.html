@@ -1,0 +1,25 @@
+<body>
+  <header>
+    <h1>My Website</h1>
+  </header>
+
+  <main>
+    <h2>Welcome</h2>
+    <p>This is the main content area.</p>
+
+
+
+    <div>
+      <div class = "content-box" *ngFor= "let item of allListings">
+        <a routerLink="/listings/{{item.id}}">{{item.name}} - $ {{item.price}} </a>
+        <!-- <a routerLink="/listings/{{item.id}}"><button>{{item.name}} - $ {{item.price}} </button></a> -->
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Tharu</p>
+  </footer>
+</body>
+
