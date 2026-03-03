@@ -1,6 +1,5 @@
-
-<app-listing-form 
-[currentListing]="currentListing"
-[buttonMessage]="buttonText"
-[componentMessage]="editComponentMessage" 
-(messageEvent)="editListing($event)"></app-listing-form>
+<ng-container *ngIf="currentListing$ | async as currentListing">
+    <app-listing-form [currentListing]="currentListing" [buttonMessage]="buttonText"
+        [componentMessage]="editComponentMessage" (messageEvent)="editListing($event)">
+    </app-listing-form>
+</ng-container>

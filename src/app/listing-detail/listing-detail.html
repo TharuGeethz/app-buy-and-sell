@@ -1,13 +1,30 @@
+<div class="page">
+  <div class="details-box" *ngIf="(listing$ | async) as listing">
+    <div class="header">
+      <p class="subtitle">Listing details</p>
+      <h2 class="title">{{ listing.name }}</h2>
+    </div>
 
+    <div class="meta">
+      <span class="pill">ID: {{ listing.id }}</span>
+      <span class="pill">Views: {{ listing.views }}</span>
+    </div>
 
-<div class = "details-box" *ngIf = "listing !== undefined">
-    <p>Details of Listing "{{listing.name}} "</p>
+    <div class="grid">
+      <div class="row">
+        <span class="label">Description</span>
+        <span class="value">{{ listing.description }}</span>
+      </div>
 
-    <div>Id - {{listing.id}}</div>
-    <div>Name - {{listing.name}}</div>
-    <div>Description - {{listing.description}}</div>
-    <div>Price - ${{listing.price}}</div>
-    <a routerLink="/contact/{{listing.id}}"><button>Contact Seller</button></a>
+      <div class="row">
+        <span class="label">Price</span>
+        <span class="value price">${{ listing.price }}</span>
+      </div>
+    </div>
 
-    <button><a routerLink = "/listings">Go Back</a></button>
+    <div class="actions">
+      <a class="btn primary" [routerLink]="['/contact', listing.id]">Contact Seller</a>
+      <a class="btn" routerLink="/listings">Go Back</a>
+    </div>
+  </div>
 </div>

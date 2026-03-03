@@ -1,25 +1,21 @@
-<body>
-  <header>
-    <h1>My Website</h1>
-  </header>
+<section class="listings-page">
+  <div class="page-header">
+    <h1>All Listings</h1>
+    <p class="subtext">Browse available items and click a listing to view details.</p>
+  </div>
 
-  <main>
-    <h2>Welcome</h2>
-    <p>This is the main content area.</p>
-
-
-
-    <div>
-      <div class = "content-box" *ngFor= "let item of allListings">
-        <a routerLink="/listings/{{item.id}}">{{item.name}} - $ {{item.price}} </a>
-        <!-- <a routerLink="/listings/{{item.id}}"><button>{{item.name}} - $ {{item.price}} </button></a> -->
+  <div class="listings-grid">
+    <a class="listing-card" *ngFor="let item of allListings" [routerLink]="['/listings', item.id]">
+      <div class="card-left">
+        <div class="title">{{ item.name }}</div>
+        <div class="meta">ID: {{ item.id }}</div>
       </div>
 
-    </div>
-  </main>
+      <div class="price">$ {{ item.price }}</div>
+    </a>
+  </div>
 
-  <footer>
-    <p>© 2026 Tharu</p>
-  </footer>
-</body>
-
+  <div class="empty" *ngIf="allListings.length === 0">
+    No listings yet.
+  </div>
+</section>

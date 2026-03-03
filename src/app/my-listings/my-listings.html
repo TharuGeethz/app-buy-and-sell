@@ -1,16 +1,36 @@
+<section class="my-listings-page">
 
+  <div class="page-header">
+    <h1>My Listings</h1>
+    <a class="add-btn" routerLink="/new-listing">+ Add New Listing</a>
+  </div>
 
-<div *ngFor="let listing of myListings" class="contents">
+  <div *ngIf="(myListings$ | async) as myListings">
 
-    <div>{{listing.name}}</div>
-    <div>${{listing.price}}</div>
-    <div>{{listing.description}}</div>
-
-    <div class="buttons-set">
-        <a routerLink="/edit-listing/{{listing.id}}"><button>Edit</button></a>
-        <button (click)="onDeleteClicked(listing.id.toString())">Delete</button>
+    <div class="empty" *ngIf="myListings.length === 0">
+      No listings found.
     </div>
-</div>
 
-<a routerLink="/new-listing"><button>Add New Listing</button></a>
+    <div *ngFor="let listing of myListings" class="listing-card">
 
+      <div class="card-info">
+        <div class="title">{{ listing.name }}</div>
+        <div class="price">${{ listing.price }}</div>
+        <div class="description">{{ listing.description }}</div>
+      </div>
+
+      <div class="buttons-set">
+        <a [routerLink]="['/edit-listing', listing.id]">
+          <button class="edit-btn">Edit</button>
+        </a>
+
+        <button class="delete-btn" (click)="onDeleteClicked(listing.id.toString())">
+          Delete
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
