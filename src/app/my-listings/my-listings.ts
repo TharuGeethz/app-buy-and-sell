@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Listing } from '../types';
-import { fakeMyListings } from '../fake-data';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ListingsService } from '../services/listings.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-my-listings',
@@ -12,23 +13,20 @@ import { RouterLink } from '@angular/router';
 })
 export class MyListings implements OnInit {
 
-  myListings : Listing[] = [];
+  myListings$!: Observable<Listing[]>;
 
+  constructor(private listingsService: ListingsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.myListings = fakeMyListings;
+    this.myListings$ = this.listingsService.getListingsForCurrentUser();
   }
 
-  onDeleteClicked(listingId: string):void {
-    alert(`The listing was deleted with id ${listingId}`)
+  onDeleteClicked(listingId: string): void {
+    this.listingsService.deleteListing(listingId).subscribe(res => {
+      console.log(res);
+      this.myListings$ = this.listingsService.getListingsForCurrentUser();
+      this.cdr.markForCheck();
+    });
   }
-
-
-
-
-  
-
-
-
 
 }

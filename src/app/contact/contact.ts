@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Listing } from '../types';
-import { fakeListings } from '../fake-data';
 import { FormsModule } from '@angular/forms';
+import { ListingsService } from '../services/listings.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,16 +15,21 @@ export class Contact implements OnInit {
   message: string = '';
   listing?: Listing;
 
-  constructor(private route:ActivatedRoute, private router: Router)
-  {}
+
+  constructor(private route: ActivatedRoute, private router: Router,
+    private listingsService : ListingsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const listingId = this.route.snapshot.paramMap.get('id');
-    this.listing = fakeListings.find(listing=> listing.id === listingId);
-    this.message = `Hi, I'm interested in ${this.listing?.name.toLowerCase()}!`;
+    if(listingId) this.listingsService.getListingById(listingId).subscribe(listing=> {
+      this.listing = listing;
+      this.message = `Hi, I'm interested in ${this.listing?.name.toLowerCase()}!`;
+      this.cdr.markForCheck();
+    });
+
   }
 
-  sendMessage(): void{
+  sendMessage(): void {
     alert("Message has been sent to the seller!");
     this.router.navigateByUrl('/listings');
   }
